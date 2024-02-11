@@ -13,7 +13,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(path = "${app.apiRoot}")
 public class CoursesControllerApiImpl implements CoursesApi {
-    public Map<Integer, Course> courseMap =  new ImmutableMap.Builder<Integer, Course>()
+    public Map<Integer, Course> courseMap = new ImmutableMap.Builder<Integer, Course>()
             .put(1, new Course("Computer Science", "4", Course.CourseTypeEnum.ENGINEERING))
             .put(2, new Course("Mechanical Engineering", "4", Course.CourseTypeEnum.ENGINEERING))
             .put(3, new Course("Microbiology", "4", Course.CourseTypeEnum.MEDICAL))
@@ -23,5 +23,11 @@ public class CoursesControllerApiImpl implements CoursesApi {
     public ResponseEntity<List<Course>> getCourses(String sortBy) {
         List<Course> list = courseMap.values().stream().toList();
         return ResponseEntity.ok(list);
+    }
+
+    @Override
+    public ResponseEntity<Course> getCourse(Integer courseId) {
+        Course course = courseMap.getOrDefault(courseId, null);
+        return ResponseEntity.ofNullable(course);
     }
 }
