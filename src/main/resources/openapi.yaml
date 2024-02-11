@@ -109,33 +109,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              description: Represents a course entry
-              properties:
-                courseId:
-                  type: number
-                  description: Unique ID of the course
-                courseName:
-                  type: string
-                  description: Name of the course
-                courseDuration:
-                  type: string
-                  description: Duration of the course in years
-                courseType:
-                  type: string
-                  enum:
-                    - Engineering
-                    - Medical
-                    - Management
-              required: 
-                - courseName
-                - courseDuration
-                - courseType
-              example: 
-                courseId: 1
-                courseName: Computer Science
-                courseDuration: 4
-                courseType: Engineering
+              $ref: '#/components/schemas/Course'
       responses:
         '201':
           description: Successfully added a course
