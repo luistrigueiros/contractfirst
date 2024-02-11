@@ -4,3 +4,9 @@ server:
 
 app:
   apiRoot: 'api/v1'
+
+springdoc:
+  swagger-ui:
+    path: '/'
+  api-docs:
+    path: '/api-docs'
