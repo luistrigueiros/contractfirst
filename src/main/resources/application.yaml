@@ -1,1 +1,6 @@
+server:
+  servlet:
+    context-path: '/university'
 
+app:
+  apiRoot: 'api/v1'
