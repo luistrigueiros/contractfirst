@@ -15,20 +15,19 @@ externalDocs:
   description: More information about CMS API
   url: http://mycollege.com/api
   
-#servers:
+servers:
 #  - url: https://localhost:44333/api/v1
 #    description: Production server
-#
-#  - url: https://{hostname}:{port}/stagingapi/v1
-#    description: Development server
-#    variables:
-#      hostname:
-#        default: localhost
-#      port:
-#        enum:
-#          - '8080'
-#          - '8990'
-#        default: '8080'
+  - url: https://{hostname}:{port}/university/api/v1
+    description: Development server
+    variables:
+      hostname:
+        default: localhost
+      port:
+        enum:
+          - '8080'
+          - '9090'
+        default: '8080'
         
 tags:
   - name: course

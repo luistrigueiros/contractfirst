@@ -44,7 +44,7 @@ sourceSets.main.java.srcDirs += "$rootDir/build/generated-server/src/main/java"
 
 openApiGenerate {
 	generatorName = "spring"
-	inputSpec = "$rootDir/openapi.yaml".toString()
+	inputSpec = "$rootDir/src/main/resources/openapi.yaml".toString()
 	outputDir = "$rootDir/build/generated-server"
 	apiPackage = "${project.group}.openapi"
 	modelPackage = "${project.group}.openapi.models"
@@ -72,6 +72,6 @@ openApiMeta {
 }
 
 openApiValidate {
-	inputSpec = "$rootDir/openapi.yaml".toString()
+	inputSpec = "$rootDir/src/main/resources/openapi.yaml".toString()
 	recommend = true
 }

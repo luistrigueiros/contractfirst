@@ -1,0 +1,2 @@
+### GET Courses
+GET http://localhost:8080/university/api/v1/courses
