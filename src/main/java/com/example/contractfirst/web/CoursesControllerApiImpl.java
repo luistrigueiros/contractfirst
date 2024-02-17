@@ -43,7 +43,7 @@ public class CoursesControllerApiImpl implements CoursesApi {
     @Override
     public ResponseEntity<Course> addCourse(Course course) {
         CourseRecord courseRecord = Mappers.from(course);
-        CourseRecord save = courseRepository.save(courseRecord);
+        courseRepository.save(courseRecord);
         return new ResponseEntity<>(course, HttpStatusCode.valueOf(201));
     }
 }
