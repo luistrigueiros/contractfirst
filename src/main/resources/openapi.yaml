@@ -16,8 +16,8 @@ externalDocs:
   url: http://mycollege.com/api
   
 servers:
-#  - url: https://localhost:44333/api/v1
-#    description: Production server
+  - url: https://localhost:8080/university/api/v1
+    description: Local develop server
   - url: https://{hostname}:{port}/university/api/v1
     description: Development server
     variables:
