@@ -4,7 +4,6 @@ import com.example.contractfirst.Mappers;
 import com.example.contractfirst.domain.CourseRecord;
 import com.example.contractfirst.domain.CourseRepository;
 import com.example.openapi.CoursesApi;
-import com.example.openapi.models.AddCourse201Response;
 import com.example.openapi.models.Course;
 import com.google.common.collect.ImmutableList;
 import org.springframework.http.HttpStatusCode;
@@ -42,12 +41,9 @@ public class CoursesControllerApiImpl implements CoursesApi {
     }
 
     @Override
-    public ResponseEntity<AddCourse201Response> addCourse(Course course) {
+    public ResponseEntity<Course> addCourse(Course course) {
         CourseRecord courseRecord = Mappers.from(course);
         CourseRecord save = courseRepository.save(courseRecord);
-        AddCourse201Response.CourseTypeEnum courseTypeEnum = AddCourse201Response.CourseTypeEnum.fromValue(courseRecord.courseType());
-        String courseDuration = "" + courseRecord.courseDuration();
-        AddCourse201Response response = new AddCourse201Response(save.courseName(), courseDuration, courseTypeEnum);
-        return new ResponseEntity<>(response, HttpStatusCode.valueOf(201));
+        return new ResponseEntity<>(course, HttpStatusCode.valueOf(201));
     }
 }
