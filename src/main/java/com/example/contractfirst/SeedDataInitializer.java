@@ -5,7 +5,8 @@ import com.example.contractfirst.domain.StudentRepository;
 import com.example.openapi.models.Course;
 import com.google.common.collect.ImmutableList;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -14,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Component
-public class SeedDataInitializer implements CommandLineRunner {
+public class SeedDataInitializer {
     private final CourseRepository courseRepository;
 
     private final StudentRepository studentRepository;
@@ -39,8 +40,8 @@ public class SeedDataInitializer implements CommandLineRunner {
         return course;
     }
 
-    @Override
-    public void run(String... args) throws Exception {
+    @EventListener(ApplicationReadyEvent.class)
+    public void loadTestData() throws Exception {
         log.info("Creating seed data ....");
         long count = courseList.stream()
                 .map(this::setIdIn)

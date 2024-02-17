@@ -34,9 +34,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation "org.springframework.boot:spring-boot-starter-json"
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.hibernate:hibernate-validator:8.0.1.Final'
     compileOnly 'org.projectlombok:lombok'
     implementation 'com.google.guava:guava:33.0.0-jre'
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'com.aayushatharva.brotli4j:brotli4j:1.16.0'
+    runtimeOnly 'com.aayushatharva.brotli4j:native-windows-x86_64:1.16.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
 
 test {

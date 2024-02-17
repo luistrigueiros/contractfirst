@@ -1,12 +1,8 @@
 package com.example.contractfirst.domain;
 
-import java.util.Optional;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CourseRepository {
-    Iterable<CourseRecord> findAll();
-    Optional<CourseRecord> findById(Integer id);
-    boolean existsById(Integer id);
-    void deleteById(Integer id);
-
-    CourseRecord save(CourseRecord record);
+@Repository
+public interface CourseRepository extends CrudRepository<CourseRecord, Long> {
 }

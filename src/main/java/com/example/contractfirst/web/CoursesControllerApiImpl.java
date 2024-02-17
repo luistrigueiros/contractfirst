@@ -34,7 +34,7 @@ public class CoursesControllerApiImpl implements CoursesApi {
 
     @Override
     public ResponseEntity<Course> getCourse(Integer courseId) {
-        Course course = courseRepository.findById(courseId)
+        Course course = courseRepository.findById(Long.valueOf(courseId))
                 .map(Mappers::from)
                 .orElse(null);
         return ResponseEntity.ofNullable(course);
