@@ -7,7 +7,6 @@ import com.example.openapi.CoursesApi;
 import com.example.openapi.models.AddCourse201Response;
 import com.example.openapi.models.Course;
 import com.google.common.collect.ImmutableList;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
