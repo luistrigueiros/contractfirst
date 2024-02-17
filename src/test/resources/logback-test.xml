@@ -1,0 +1,24 @@
+<configuration debug="false">
+
+    <logger name="org.springframework" level="warn" />
+    <logger name="org.hibernate" level="warn" />
+    <logger name="org.springframework.web" level="debug" />
+
+    <appender name="Console-Appender" class="ch.qos.logback.core.ConsoleAppender">
+        <layout>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </layout>
+    </appender>
+    <appender name="File-Appender" class="ch.qos.logback.core.FileAppender">
+        <file>build/test-logfile.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root>
+        <appender-ref ref="Console-Appender" />
+        <appender-ref ref="File-Appender" />
+    </root>
+</configuration>
