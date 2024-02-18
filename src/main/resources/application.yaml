@@ -15,6 +15,7 @@ springdoc:
 
 spring:
   datasource:
+    url: 'jdbc:h2:mem:contractfirst-db'
 #    url: 'jdbc:h2:file:/tmp/contractfirst-db'
     username: 'sa'
     driver-class-name: 'org.h2.Driver'

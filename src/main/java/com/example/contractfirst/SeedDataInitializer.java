@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.function.Consumer;
 
 @Slf4j
 @Component
@@ -30,24 +31,28 @@ public class SeedDataInitializer {
     @EventListener(ApplicationReadyEvent.class)
     public void loadTestData() throws Exception {
         log.info("Creating seed data ....");
-        int count = loadFromCsvFile(courseCsv.getFile());
+        int count = loadFromCsvFile(courseCsv.getFile(), this::processCourseLine);
         log.info("Loaded {} courses", count);
     }
 
-    private int loadFromCsvFile(File file) throws IOException {
+    private int loadFromCsvFile(File file, Consumer<CSVRecord> consumer) throws IOException {
         int count = 0;
         try (Reader reader = new FileReader(file);
              CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
-            for (CSVRecord record : csvParser) {
-                CourseRecord courseRecord = new CourseRecord();
-                courseRecord.setCourseId(Integer.valueOf(record.get("COURSE_ID")));
-                courseRecord.setCourseDuration(Integer.valueOf(record.get("COURSE_DURATION")));
-                courseRecord.setCourseName(record.get("COURSE_NAME"));
-                courseRecord.setCourseType(record.get("COURSE_TYPE"));
-                courseRepository.save(courseRecord);
+            for (CSVRecord line : csvParser) {
+                consumer.accept(line);
                 count++;
             }
         }
         return count;
+    }
+
+    private void processCourseLine(CSVRecord record) {
+        CourseRecord courseRecord = new CourseRecord();
+        courseRecord.setCourseId(Integer.valueOf(record.get("COURSE_ID")));
+        courseRecord.setCourseDuration(Integer.valueOf(record.get("COURSE_DURATION")));
+        courseRecord.setCourseName(record.get("COURSE_NAME"));
+        courseRecord.setCourseType(record.get("COURSE_TYPE"));
+        courseRepository.save(courseRecord);
     }
 }
