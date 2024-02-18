@@ -1,4 +1,4 @@
-package com.example.contractfirst;
+package com.example.contractfirst.web;
 
 import com.example.contractfirst.domain.CourseRepository;
 import com.example.openapi.models.Course;
