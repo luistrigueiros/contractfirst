@@ -15,9 +15,9 @@ public class StudentRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer studentId;
-    //@NotBlank(message = "The student firstName must be defined.")
+    @NotBlank(message = "The student firstName must be defined.")
     private String firstName;
-    //@NotBlank(message = "The student lastName must be defined.")
+    @NotBlank(message = "The student lastName must be defined.")
     private String lastName;
     private String phoneNumber;
     private String address;
