@@ -12,8 +12,6 @@ import java.math.BigDecimal;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CoursesApiIntegrationTest {
     @Autowired
-    private CourseRepository courseRepository;
-    @Autowired
     private WebTestClient webTestClient;
 
     @Test
