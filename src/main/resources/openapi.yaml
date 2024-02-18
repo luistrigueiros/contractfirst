@@ -16,8 +16,8 @@ externalDocs:
   url: http://mycollege.com/api
   
 servers:
-#  - url: https://localhost:44333/api/v1
-#    description: Production server
+  - url: https://localhost:8080/university/api/v1
+    description: Local develop server
   - url: https://{hostname}:{port}/university/api/v1
     description: Development server
     variables:
@@ -88,37 +88,7 @@ paths:
               $ref: '#/components/schemas/Course'
       responses:
         '201':
-          description: Successfully added a course
-          content:
-            application/json:
-              schema:
-                type: object
-                description: Represents a course entry
-                properties:
-                  courseId:
-                    type: number
-                    description: Unique ID of the course
-                  courseName:
-                    type: string
-                    description: Name of the course
-                  courseDuration:
-                    type: string
-                    description: Duration of the course in years
-                  courseType:
-                    type: string
-                    enum:
-                      - Engineering
-                      - Medical
-                      - Management
-                required: 
-                  - courseName
-                  - courseDuration
-                  - courseType
-                example: 
-                  courseId: 1
-                  courseName: Computer Science
-                  courseDuration: 4
-                  courseType: Engineering
+          $ref: '#/components/responses/CourseSuccess'
   /courses/{courseId}:
     summary: Operations about individual course
     description: Contains the list of operations applied on courses

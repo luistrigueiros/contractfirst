@@ -1,78 +1,100 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version "${springBootVersion}"
-	id "io.spring.dependency-management" version "${springDependencyManagementVersion}"
-	id "org.openapi.generator" version "7.3.0"
+    id 'java'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id "io.spring.dependency-management" version "${springDependencyManagementVersion}"
+    id "org.openapi.generator" version "7.3.0"
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+    sourceCompatibility = '17'
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation "org.springframework.boot:spring-boot-starter-json"
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-	annotationProcessor 'org.projectlombok:lombok'
-	implementation 'com.google.guava:guava:33.0.0-jre'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	// OpenAPI-CodeGen-Deps
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
-	implementation 'com.google.code.findbugs:jsr305:3.0.2'
-	implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    // OpenAPI-CodeGen-Deps
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+    // SpringBoot implement deps
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.springframework.boot:spring-boot-starter-json"
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.hibernate:hibernate-validator:8.0.1.Final'
+    compileOnly 'org.projectlombok:lombok'
+    implementation 'com.google.guava:guava:33.0.0-jre'
+    implementation 'org.apache.commons:commons-csv:1.10.0'
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'com.aayushatharva.brotli4j:brotli4j:1.16.0'
+    runtimeOnly 'com.aayushatharva.brotli4j:native-windows-x86_64:1.16.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
+    testImplementation 'org.projectlombok:lombok'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+test {
+    useJUnitPlatform()
+	testLogging {
+		events "started", "passed", "skipped", "failed"
+	}
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs = [
+            '-Amapstruct.suppressGeneratorTimestamp=true'
+    ]
 }
 
 sourceSets.main.java.srcDirs += "$rootDir/build/generated-server/src/main/java"
 
 openApiGenerate {
-	generatorName = "spring"
-	inputSpec = "$rootDir/src/main/resources/openapi.yaml".toString()
-	outputDir = "$rootDir/build/generated-server"
-	apiPackage = "${project.group}.openapi"
-	modelPackage = "${project.group}.openapi.models"
-	logToStderr = true
-	generateAliasAsModel = false
+    generatorName = "spring"
+    inputSpec = "$rootDir/src/main/resources/openapi.yaml".toString()
+    outputDir = "$rootDir/build/generated-server"
+    apiPackage = "${project.group}.openapi"
+    modelPackage = "${project.group}.openapi.models"
+    logToStderr = true
+    generateAliasAsModel = false
 
-	globalProperties = [
-			modelDocs: "false"
-	]
-	configOptions = [
-			interfaceOnly        : "true",
-			useSpringBoot3       : "true",
-			dateLibrary          : "java8",
-			library              : "spring-boot",
-			documentationProvider: "springdoc"
-	]
+    globalProperties = [
+            modelDocs: "false"
+    ]
+    configOptions = [
+            interfaceOnly        : "true",
+            useSpringBoot3       : "true",
+            dateLibrary          : "java8",
+            library              : "spring-boot",
+            documentationProvider: "springdoc"
+    ]
 }
 
 compileJava.dependsOn tasks.named("openApiGenerate")
 
 openApiMeta {
-	generatorName = "Sample"
-	packageName = "${project.group}"
-	outputFolder = "$rootDir/build/meta".toString()
+    generatorName = "Sample"
+    packageName = "${project.group}"
+    outputFolder = "$rootDir/build/meta".toString()
 }
 
 openApiValidate {
-	inputSpec = "$rootDir/src/main/resources/openapi.yaml".toString()
-	recommend = true
+    inputSpec = "$rootDir/src/main/resources/openapi.yaml".toString()
+    recommend = true
 }
