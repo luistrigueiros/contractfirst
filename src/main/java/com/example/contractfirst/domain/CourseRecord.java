@@ -15,7 +15,7 @@ public class CourseRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer courseId;
-    //@NotBlank(message = "The course courseName must be defined.")
+    @NotBlank(message = "The course courseName must be defined.")
     private String courseName;
     //@NotBlank(message = "The course courseDuration must be defined.")
     private Integer courseDuration;

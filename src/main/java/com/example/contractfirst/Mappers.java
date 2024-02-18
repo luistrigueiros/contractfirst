@@ -14,6 +14,7 @@ public class Mappers {
         record.setCourseId(course.getCourseId().intValue());
         record.setCourseType(course.getCourseType().getValue());
         record.setCourseDuration(Integer.valueOf(course.getCourseDuration()));
+        record.setCourseName(course.getCourseName());
         return record;
     }
 }
