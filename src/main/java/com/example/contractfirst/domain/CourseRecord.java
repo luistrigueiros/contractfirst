@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,8 +19,9 @@ public class CourseRecord {
     private Integer courseId;
     @NotBlank(message = "The course courseName must be defined.")
     private String courseName;
-    //@NotBlank(message = "The course courseDuration must be defined.")
+    @NotNull(message = "The course courseDuration must be defined.")
+    @Positive(message = "The course courseDuration must be greater then zero")
     private Integer courseDuration;
-    //@NotBlank(message = "The course courseType must be defined.")
+    @NotBlank(message = "The course courseType must be defined.")
     private String courseType;
 }
