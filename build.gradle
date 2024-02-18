@@ -25,6 +25,9 @@ repositories {
 dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
     // OpenAPI-CodeGen-Deps
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
@@ -38,11 +41,13 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     implementation 'com.google.guava:guava:33.0.0-jre'
     implementation 'org.apache.commons:commons-csv:1.10.0'
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.aayushatharva.brotli4j:brotli4j:1.16.0'
     runtimeOnly 'com.aayushatharva.brotli4j:native-windows-x86_64:1.16.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
+    testImplementation 'org.projectlombok:lombok'
 }
 
 test {
@@ -50,6 +55,12 @@ test {
 	testLogging {
 		events "started", "passed", "skipped", "failed"
 	}
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs = [
+            '-Amapstruct.suppressGeneratorTimestamp=true'
+    ]
 }
 
 sourceSets.main.java.srcDirs += "$rootDir/build/generated-server/src/main/java"

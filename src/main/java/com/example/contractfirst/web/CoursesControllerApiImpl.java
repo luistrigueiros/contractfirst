@@ -1,6 +1,6 @@
 package com.example.contractfirst.web;
 
-import com.example.contractfirst.Mappers;
+import com.example.contractfirst.util.Mappers;
 import com.example.contractfirst.domain.CourseRecord;
 import com.example.contractfirst.domain.CourseRepository;
 import com.example.openapi.CoursesApi;
@@ -27,7 +27,7 @@ public class CoursesControllerApiImpl implements CoursesApi {
         Iterable<CourseRecord> all = courseRepository.findAll();
         List<Course> list = ImmutableList.copyOf(all)
                 .stream()
-                .map(Mappers::from)
+                .map(Mappers.INSTANCE::courseRecordToCourse)
                 .toList();
         return ResponseEntity.ok(list);
     }
@@ -35,14 +35,14 @@ public class CoursesControllerApiImpl implements CoursesApi {
     @Override
     public ResponseEntity<Course> getCourse(Integer courseId) {
         Course course = courseRepository.findById(Long.valueOf(courseId))
-                .map(Mappers::from)
+                .map(Mappers.INSTANCE::courseRecordToCourse)
                 .orElse(null);
         return ResponseEntity.ofNullable(course);
     }
 
     @Override
     public ResponseEntity<Course> addCourse(Course course) {
-        CourseRecord courseRecord = Mappers.from(course);
+        CourseRecord courseRecord = Mappers.INSTANCE.courseToCourseRecord(course);
         courseRepository.save(courseRecord);
         return new ResponseEntity<>(course, HttpStatusCode.valueOf(201));
     }

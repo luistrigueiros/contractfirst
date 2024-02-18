@@ -53,6 +53,7 @@ public class SeedDataInitializer {
         courseRecord.setCourseDuration(Integer.valueOf(record.get("COURSE_DURATION")));
         courseRecord.setCourseName(record.get("COURSE_NAME"));
         courseRecord.setCourseType(record.get("COURSE_TYPE"));
+        log.debug("About to load {}", courseRecord);
         courseRepository.save(courseRecord);
     }
 }

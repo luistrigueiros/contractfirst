@@ -3,3 +3,6 @@ GET http://localhost:8080/university/api/v1/courses
 
 ###
 GET http://localhost:8080/university/api/v1/courses?sortBy=asc
+
+###
+GET http://localhost:8080/university/api/v1/courses/1
