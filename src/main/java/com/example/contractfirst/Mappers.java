@@ -5,7 +5,7 @@ import com.example.openapi.models.Course;
 
 public class Mappers {
     public static Course from(CourseRecord record) {
-        Course.CourseTypeEnum engineering = Course.CourseTypeEnum.valueOf(record.getCourseType());
+        Course.CourseTypeEnum engineering = Course.CourseTypeEnum.fromValue(record.getCourseType());
         return new Course(record.getCourseName(), "" + record.getCourseDuration(), engineering);
     }
 

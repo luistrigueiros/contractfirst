@@ -17,7 +17,7 @@ class CoursesApiTest {
     private WebTestClient webTestClient;
 
     @Test
-    void whenAddCourseTheShouldHave201() throws Exception {
+    void whenAddCourseThenShouldHave201() {
         Course courseToAdd = new Course("Chemistry", "4", Course.CourseTypeEnum.ENGINEERING);
         courseToAdd.setCourseId(new BigDecimal(5));
         webTestClient.post()
@@ -27,4 +27,12 @@ class CoursesApiTest {
                 .expectStatus().isCreated();
     }
 
+    @Test
+    void whenGetCoursesThenShouldHave200() {
+        webTestClient.get()
+                .uri("/api/v1/courses")
+                .exchange()
+                .expectStatus()
+                .isOk();
+    }
 }

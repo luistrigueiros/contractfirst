@@ -13,7 +13,9 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.Reader;
 
 @Slf4j
@@ -28,8 +30,13 @@ public class SeedDataInitializer {
     @EventListener(ApplicationReadyEvent.class)
     public void loadTestData() throws Exception {
         log.info("Creating seed data ....");
+        int count = loadFromCsvFile(courseCsv.getFile());
+        log.info("Loaded {} courses", count);
+    }
+
+    private int loadFromCsvFile(File file) throws IOException {
         int count = 0;
-        try (Reader reader = new FileReader(courseCsv.getFile());
+        try (Reader reader = new FileReader(file);
              CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
             for (CSVRecord record : csvParser) {
                 CourseRecord courseRecord = new CourseRecord();
@@ -41,6 +48,6 @@ public class SeedDataInitializer {
                 count++;
             }
         }
-        log.info("Loaded {} courses", count);
+        return count;
     }
 }
