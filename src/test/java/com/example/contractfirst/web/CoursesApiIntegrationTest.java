@@ -10,7 +10,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.math.BigDecimal;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class CoursesApiTest {
+class CoursesApiIntegrationTest {
     @Autowired
     private CourseRepository courseRepository;
     @Autowired
