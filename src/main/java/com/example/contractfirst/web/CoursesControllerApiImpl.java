@@ -6,12 +6,14 @@ import com.example.contractfirst.util.Mappers;
 import com.example.openapi.CoursesApi;
 import com.example.openapi.models.Course;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.List;
@@ -21,6 +23,7 @@ import java.util.stream.StreamSupport;
 @Slf4j
 @RestController
 @RequestMapping(path = "${app.apiRoot}")
+@Scope(value = WebApplicationContext.SCOPE_REQUEST)
 public class CoursesControllerApiImpl implements CoursesApi {
     private final CourseRepository courseRepository;
     private final NativeWebRequest request;
