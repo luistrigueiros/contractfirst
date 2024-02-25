@@ -5,7 +5,6 @@ import com.example.contractfirst.domain.CourseRepository;
 import com.example.contractfirst.util.Mappers;
 import com.example.openapi.CoursesApi;
 import com.example.openapi.models.Course;
-import com.google.common.collect.ImmutableList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Slf4j
 @RestController
@@ -37,18 +38,16 @@ public class CoursesControllerApiImpl implements CoursesApi {
                     .stream()
                     .map(GrantedAuthority::getAuthority)
                     .toList();
-            log.debug("Granted authorities {}" , String.join(",", list));
+            log.debug("Granted authorities {}", String.join(",", list));
         }
     }
 
     @Override
     public ResponseEntity<List<Course>> getCourses(String sortBy) {
         debugPrintUserPrincipal();
-        Iterable<CourseRecord> all = courseRepository.findAll();
-        List<Course> list = ImmutableList.copyOf(all)
-                .stream()
+        List<Course> list = StreamSupport.stream(courseRepository.findAll().spliterator(), false)
                 .map(Mappers.INSTANCE::courseRecordToCourse)
-                .toList();
+                .collect(Collectors.toList());
         return ResponseEntity.ok(list);
     }
 
