@@ -57,11 +57,6 @@ test {
 	}
 }
 
-tasks.withType(JavaCompile) {
-    options.compilerArgs = [
-            '-Amapstruct.suppressGeneratorTimestamp=true'
-    ]
-}
 
 sourceSets.main.java.srcDirs += "$rootDir/build/generated-server/src/main/java"
 
