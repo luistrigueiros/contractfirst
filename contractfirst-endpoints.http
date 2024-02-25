@@ -1,8 +1,27 @@
 ### GET Courses
 GET http://localhost:8080/university/api/v1/courses
 
+> {%
+    client.test("Request executed should fail", function () {
+        client.assert(response.status === 401, "Response status is 401");
+    });
+%}
+
+
 ###
 GET http://localhost:8080/university/api/v1/courses?sortBy=asc
 
 ###
 GET http://localhost:8080/university/api/v1/courses/1
+
+### Basic authorization with variables.
+@username = user
+@password = passwd
+GET http://localhost:8080/university/api/v1/courses
+Authorization: Basic {{username}} {{password}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
