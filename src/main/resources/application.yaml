@@ -14,6 +14,10 @@ springdoc:
     path: '/api-docs'
 
 spring:
+  security:
+    user:
+      name: user
+      password: passwd
   datasource:
     url: 'jdbc:h2:mem:contractfirst-db'
 #    url: 'jdbc:h2:file:/tmp/contractfirst-db'
@@ -26,3 +30,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+logging:
+  level:
+    com.example: debug
