@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version "${springBootVersion}"
     id "io.spring.dependency-management" version "${springDependencyManagementVersion}"
-    id "org.openapi.generator" version "7.3.0"
+    id "org.openapi.generator" version "${openapiGeneratorVersion}"
 }
 
 group = 'com.example'
@@ -59,12 +59,12 @@ test {
 }
 
 
-sourceSets.main.java.srcDirs += "$rootDir/build/generated-server/src/main/java"
+sourceSets.main.java.srcDirs += "$projectDir/build/generated-server/src/main/java"
 
 openApiGenerate {
     generatorName = "spring"
-    inputSpec = "$rootDir/src/main/resources/openapi.yaml".toString()
-    outputDir = "$rootDir/build/generated-server"
+    inputSpec = "$rootDir/openapi.yaml".toString()
+    outputDir = "$projectDir/build/generated-server"
     apiPackage = "${project.group}.openapi"
     modelPackage = "${project.group}.openapi.models"
     logToStderr = true
@@ -87,10 +87,10 @@ compileJava.dependsOn tasks.named("openApiGenerate")
 openApiMeta {
     generatorName = "Sample"
     packageName = "${project.group}"
-    outputFolder = "$rootDir/build/meta".toString()
+    outputFolder = "$projectDir/build/meta".toString()
 }
 
 openApiValidate {
-    inputSpec = "$rootDir/src/main/resources/openapi.yaml".toString()
+    inputSpec = "$rootDir/openapi.yaml".toString()
     recommend = true
 }

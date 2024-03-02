@@ -1,1 +1,3 @@
 rootProject.name = 'contractfirst'
+
+include('spring-boot-server', 'javascript-client')
