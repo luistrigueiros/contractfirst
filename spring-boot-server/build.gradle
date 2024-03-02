@@ -48,6 +48,7 @@ dependencies {
     runtimeOnly 'com.aayushatharva.brotli4j:native-windows-x86_64:1.16.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
+    testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.projectlombok:lombok'
 }
 

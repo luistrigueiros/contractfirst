@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -23,11 +24,12 @@ class CoursesApiValidationTest {
     private CourseRepository courseRepository;
 
     @Test
+    @WithMockUser
     void postingInvalidCourseShouldFailWithClientError() throws Exception {
         Course courseToAdd = new Course(null, "4", Course.CourseTypeEnum.ENGINEERING);
         mockMvc.perform(post("/api/v1/courses")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(objectMapper.writeValueAsBytes(courseToAdd)))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsBytes(courseToAdd)))
                 .andExpect(status().is4xxClientError());
     }
 
