@@ -1,3 +1,5 @@
+#Use with enviroment: dev
+
 ### GET Courses
 GET http://localhost:8080/university/api/v1/courses
 
@@ -15,8 +17,6 @@ GET http://localhost:8080/university/api/v1/courses?sortBy=asc
 GET http://localhost:8080/university/api/v1/courses/1
 
 ### Basic authorization with variables.
-@username = user
-@password = passwd
 GET http://localhost:8080/university/api/v1/courses
 Authorization: Basic {{username}} {{password}}
 

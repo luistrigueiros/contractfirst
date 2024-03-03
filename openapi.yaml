@@ -432,10 +432,7 @@ components:
     BasicAuthentication:
       type: http
       scheme: basic
-    BearerAuthentication:
-      type: http
-      scheme: bearer
-              
+
 security: 
   - BasicAuthentication: []
        

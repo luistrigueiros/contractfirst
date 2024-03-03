@@ -13,11 +13,14 @@ springdoc:
   api-docs:
     path: '/api-docs'
 
+#security:
+#  csrf: false
+
 spring:
   security:
     user:
       name: user
-      password: passwd
+      password: password
   datasource:
     url: 'jdbc:h2:mem:contractfirst-db'
 #    url: 'jdbc:h2:file:/tmp/contractfirst-db'
@@ -34,3 +37,4 @@ spring:
 logging:
   level:
     com.example: debug
+    org.springframework.security: debug
